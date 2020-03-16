@@ -15,15 +15,15 @@ export const todoReducer = (state, action) => {
       ]
       
     case 'TOGGLE_TODO':
-      const updatedArray = state.filter((result, index) => {
-      //  console.log('filter result', result) 
-        if (result.id !== action.todoID) {
-          return !result.completed
+      const updatedArray = state.map( item => {
+        if (item.id !== action.todoID) {
+          console.log('TOGGLER', item)
+          return item
         }
       })
       return [
         ...state,
-        completed: updatedArray
+        updatedArray
       ]
 
   default:
