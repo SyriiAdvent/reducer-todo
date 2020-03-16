@@ -7,6 +7,7 @@ const TodoItem = ({ items: { item, completed, id }, dispatch}) => {
       <div>
         <h2
         onClick={() => dispatch({ type: 'TOGGLE_TODO', todoID: id })}
+        onDoubleClick={() => dispatch({ type: 'DELETE_TODO', todoID: id })}
         style={completed ? {textDecoration: 'line-through'} :
          {textDecoration: 'none'}}
          >{item}</h2>

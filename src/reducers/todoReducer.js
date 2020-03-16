@@ -1,30 +1,36 @@
-export const initialState = [{
-  item: 'Learn about reducers',
-  completed: false,
-  id: 3892987589
-}]
+export const initialState = {
+  todoList: [
+    {item: 'Learn about reducers',
+    completed: false,
+    id: 3892987589}
+  ]
+}
 
 export const todoReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_TODO':
-      return [
+      return {
         ...state,
-        {item: action.value,
-        completed: false,
-        id: new Date() * Math.random() * 100}
-      ]
-      
+        todoList: state.todoList.concat({
+          item: action.value,
+          completed: false,
+          id: new Date() * Math.random() * 100
+        })
+      }
     case 'TOGGLE_TODO':
-      const updatedArray = state.map( item => {
-        if (item.id !== action.todoID) {
-          console.log('TOGGLER', item)
-          return item
+      return {
+        todoList: state.todoList.map( item => {
+          if(item.id !== action.todoID) {
+            return item
+          }
+        return {
+          ...item,
+          completed: !item.completed
         }
       })
-      return [
-        ...state,
-        updatedArray
-      ]
+    };
+    case 'REMOVE_TODO':
+      return {todoList: state.todoList.filter( item => item.id !== action.todoID)};
 
   default:
     return state
